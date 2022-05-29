@@ -19,4 +19,18 @@ belmont_stop_id_south_bp = 30258
 southport_stop_id_north = 30070
 southport_stop_id_south = 30071
 
+api_url_with_mapid = '{}&mapid={}'.format(cta_api_url, belmont_map_id)
 
+response = requests.get(api_url_with_mapid)
+json_response = json.loads(response.text)
+ctatt = json_response['ctatt']
+
+eta = ctatt['eta']
+eta0 = eta[0]
+#print(f'eta1 length: {len(eta0)}')
+stpDe0 = eta0['stpDe']
+arrT0 = eta0['arrT']
+
+#print(f'eta1: {eta0}\n\n')
+print(f'stpDe1: {stpDe0}')
+print(f'Arrival Time: {arrT0}')
