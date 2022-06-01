@@ -101,6 +101,12 @@ southport_stop_id_south = 30071
 northboundStr = 'Northbound trains'
 southboundStr = 'Southbound trains'
 
+belmontNorthboundStr = 'Belmont NB trains'
+belmontSouthboundStr = 'Belmont SB trains'
+
+southportNorthboundStr = 'Southport NB trains'
+southportNorthboundStr = 'Southport SB trains'
+
 
 # Hex color constants
 #hexRed   = '#c60c30'    # CTA red line color
@@ -139,8 +145,8 @@ for eta in etas:
 draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
 y = top
-draw.text((x, y), northboundStr, font=font, fill='#FFFFFF')
-y += font.getsize(northboundStr)[1]
+draw.text((x, y), belmontNorthboundStr, font=font, fill='#FFFFFF')
+y += font.getsize(belmontNorthboundStr)[1]
 
 #print('---NORTHBOUND TRAINS---')
 for train in northboundTrains:
