@@ -104,11 +104,13 @@ southboundStr = 'Southbound trains'
 
 # Hex color constants
 #hexRed   = '#c60c30'    # CTA red line color
-hexRed = '#d60b32'
+#hexRed = '#d60b32'      # red alt 1
+hexRed = '#ed0e0e'      # red alt 2
 #hexBrown = '#62361b'    # CTA brown line color
-hexBrown = '#734021'
+hexBrown = '#734021'    # brown alt 1
 hexWhite = '#FFFFFF'    # default white color
 hexBlue = '#2a79d4'     # blue info color
+hexPurple = '#7d22ab'   # purple line color
 
 
 
@@ -124,9 +126,11 @@ southboundTrains = []
 
 for eta in etas:
     if eta['trDr'] == '1':
-        northboundTrains.append(eta)
+        if len(northboundTrains) < 4:       # only store 4 upcoming trains
+            northboundTrains.append(eta)
     elif eta['trDr'] == '5':
-        southboundTrains.append(eta)
+        if len(southboundTrains) < 4:
+            southboundTrains.append(eta)
 
 
 
@@ -152,7 +156,9 @@ for train in northboundTrains:
     if (trainLine == 'Red'):
         fillColor = hexRed   
     elif (trainLine == 'Brn'):
-        fillColor = hexBrown   
+        fillColor = hexBrown
+    elif (trainLine == 'P'):
+        fillColor = hexPurple
 
 
     trainInfo = f'{trainLine} - {estArrival3}'
@@ -162,22 +168,3 @@ for train in northboundTrains:
 helpInfo = '↑ N↔S - ↓ Refresh'
 draw.text((x, y), helpInfo, font=font, fill=hexBlue)
 disp.image(image, rotation)
-
-
-    
-
-    # # Write four lines of text.
-    # y = top
-    # draw.text((x, y), IP, font=font, fill="#FFFFFF")
-    # y += font.getsize(IP)[1]
-    # draw.text((x, y), CPU, font=font, fill="#FFFF00")
-    # y += font.getsize(CPU)[1]
-    # draw.text((x, y), MemUsage, font=font, fill="#00FF00")
-    # y += font.getsize(MemUsage)[1]
-    # draw.text((x, y), Disk, font=font, fill="#0000FF")
-    # y += font.getsize(Disk)[1]
-    # draw.text((x, y), Temp, font=font, fill="#FF00FF")
-
-    # # Display image.
-    # disp.image(image, rotation)
-    # time.sleep(0.1)
