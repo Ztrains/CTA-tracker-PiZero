@@ -66,10 +66,10 @@ backlight.switch_to_output()
 backlight.value = True
 
 # setup buttons on miniPiTFT
-buttonA = digitalio.DigitalInOut(board.D23)
-buttonB = digitalio.DigitalInOut(board.D24)
-buttonA.switch_to_input()
-buttonB.switch_to_input()
+topButton = digitalio.DigitalInOut(board.D23)
+botButton = digitalio.DigitalInOut(board.D24)
+topButton.switch_to_input()
+botButton.switch_to_input()
 
 
 
@@ -140,7 +140,9 @@ for eta in etas:
 
 
 
-#while True:
+
+
+
 # Draw a black filled box to clear the image.
 draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
@@ -165,6 +167,7 @@ for train in northboundTrains:
         fillColor = hexBrown
     elif (trainLine == 'P'):
         fillColor = hexPurple
+        trainLine = 'P  '       # add 2 spaces to line up spacing with Red/Brn
 
 
     trainInfo = f'{trainLine} - {estArrival3}'
@@ -174,3 +177,21 @@ for train in northboundTrains:
 helpInfo = '↑ N↔S - ↓ Refresh'
 draw.text((x, y), helpInfo, font=font, fill=hexBlue)
 disp.image(image, rotation)
+
+
+# main loop to catch button presses
+while True:
+#    if topButton.value and botButton.value:
+#        backlight.value = False  # turn off backlight
+#    else:
+#        backlight.value = True  # turn on backlight
+
+#    if botButton.value and not topButton.value:  # just button A pressed
+#        print("top button pressed")
+#    if topButton.value and not botButton.value:  # just button B pressed
+#        print("top button pressed")
+#    if not topButton.value and not botButton.value:  # none pressed
+#        print("no buttons pressed")
+    print(f'top button val: {topButton.value}')
+    print(f'bot button val: {botButton.value}')
+    time.sleep(1)
