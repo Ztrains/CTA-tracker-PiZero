@@ -179,7 +179,7 @@ def getTrains(station_name, train_direction):
         trainList = northboundTrains
     elif train_direction == 'south':
         trainList = southboundTrains
-        
+
     for train in trainList:
         stopDescription = train["stpDe"]
         trainLine = train['rt']
@@ -307,7 +307,7 @@ while True:
     if not topButton.value and not botButton.value:  # both pressed
         print("both buttons pressed")
 
-    time.sleep(1)
+    time.sleep(0.1)
 
 
 
