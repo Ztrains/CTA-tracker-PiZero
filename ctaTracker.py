@@ -174,8 +174,13 @@ def getTrains(station_name, train_direction):
     draw.text((x, y), headerString, font=font, fill='#FFFFFF')
     y += font.getsize(headerString)[1]
 
-    #print('---NORTHBOUND TRAINS---')
-    for train in northboundTrains:
+    trainList = []
+    if train_direction == 'north':
+        trainList = northboundTrains
+    elif train_direction == 'south':
+        trainList = southboundTrains
+        
+    for train in trainList:
         stopDescription = train["stpDe"]
         trainLine = train['rt']
         estArrival = train['arrT']
