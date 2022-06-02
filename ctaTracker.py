@@ -209,7 +209,8 @@ def getTrains(station_name, train_direction):
     disp.image(image, rotation)
 
 def exitHandler(signum, frame):
-    print('ctrl-c pressed')
+    print('ctrl-c pressed, clearing screen before exit')
+    backlight.value = False
     exit(1)
 
 signal.signal(signal.SIGINT, exitHandler)
@@ -225,11 +226,7 @@ currDirection = 'north'
 # main loop to catch button presses
 # button value is TRUE when resting, value becomes FALSE when held down
 while True:
-#    if topButton.value and botButton.value:
-#        backlight.value = False  # turn off backlight
-#    else:
-#        backlight.value = True  # turn on backlight
-
+    
     if botButton.value and not topButton.value:  # just top button pressed
         print("top button pressed")
         if currTrain == 'belmont':
