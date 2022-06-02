@@ -204,8 +204,9 @@ def getTrains(station_name, train_direction):
 
         trainInfo = f'{trainLine} - {estArrival3}'
         draw.text((x, y), trainInfo, font=font, fill=fillColor)
-        y += font.getsize(trainInfo)[1]
-        print(f'y2 += {font.getsize(headerString)[1]}')
+        #y += font.getsize(trainInfo)[1]
+        y += 24
+        #print(f'y2 += {font.getsize(headerString)[1]}')
 
     helpInfo = '↑ Next stn  ↓ N↔S'
     draw.text((x, y), helpInfo, font=font, fill=hexBlue)
