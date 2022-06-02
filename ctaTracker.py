@@ -208,7 +208,7 @@ def getTrains(station_name, train_direction):
     draw.text((x, y), helpInfo, font=font, fill=hexBlue)
     disp.image(image, rotation)
 
-def exitHandler():
+def exitHandler(signum, frame):
     print('ctrl-c pressed')
     exit(1)
 
