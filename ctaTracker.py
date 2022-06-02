@@ -173,8 +173,9 @@ def getTrains(station_name, train_direction):
 
     y = top
     draw.text((x, y), headerString, font=font, fill='#FFFFFF')
-    y += font.getsize(headerString)[1]
-    print(f'y += {font.getsize(headerString)[1]}')
+    #y += font.getsize(headerString)[1]
+    y += 24
+    #print(f'y += {font.getsize(headerString)[1]}')
 
     trainList = []
     if train_direction == 'north':
@@ -204,6 +205,7 @@ def getTrains(station_name, train_direction):
         trainInfo = f'{trainLine} - {estArrival3}'
         draw.text((x, y), trainInfo, font=font, fill=fillColor)
         y += font.getsize(trainInfo)[1]
+        print(f'y2 += {font.getsize(headerString)[1]}')
 
     helpInfo = '↑ Next stn  ↓ N↔S'
     draw.text((x, y), helpInfo, font=font, fill=hexBlue)
