@@ -123,6 +123,7 @@ api_url_with_belmont_mapid = '{}&mapid={}'.format(cta_api_url, belmont_map_id)
 api_url_with_southport_mapid = '{}&mapid={}'.format(cta_api_url, southport_map_id)
 
 
+print("before getTrains()")
 
 def getTrains(url_to_hit):
     response = requests.get(url_to_hit)
@@ -182,7 +183,7 @@ def getTrains(url_to_hit):
     disp.image(image, rotation)
 
 
-
+print("after getTrains()")
 
 
 
@@ -208,7 +209,7 @@ for eta in etas:
 
 
 
-
+print("after adding to north/south lists")
 
 
 # Draw a black filled box to clear the image.
@@ -262,6 +263,8 @@ while True:
         getTrains(api_url_with_southport_mapid)
     if not topButton.value and not botButton.value:  # both pressed
         print("both buttons pressed")
+    else:
+        print("no buttons pressed")
     time.sleep(1)
 
 
