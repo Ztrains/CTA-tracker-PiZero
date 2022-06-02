@@ -174,7 +174,7 @@ def getTrains(station_name, train_direction):
     y = top
     draw.text((x, y), headerString, font=font, fill='#FFFFFF')
     #y += font.getsize(headerString)[1]
-    y += 24
+    y += 23
     #print(f'y += {font.getsize(headerString)[1]}')
 
     trainList = []
