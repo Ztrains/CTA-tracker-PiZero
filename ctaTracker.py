@@ -104,11 +104,11 @@ southport_stop_id_south = 30071
 northboundStr = 'Northbound trains'
 southboundStr = 'Southbound trains'
 
-belmontNorthboundStr = 'Belmont NB trains'
-belmontSouthboundStr = 'Belmont SB trains'
+belmontNorthboundStr = 'Belmont NB line'
+belmontSouthboundStr = 'Belmont SB line'
 
-southportNorthboundStr = 'Southport NB trains'
-southportSorthboundStr = 'Southport SB trains'
+southportNorthboundStr = 'Southport NB line'
+southportSorthboundStr = 'Southport SB line'
 
 
 # Hex color constants
@@ -205,7 +205,7 @@ def getTrains(station_name, train_direction):
         trainInfo = f'{trainLine} - {estArrival3}'
         draw.text((x, y), trainInfo, font=font, fill=fillColor)
         #y += font.getsize(trainInfo)[1]
-        y += 20
+        y += 22
         #print(f'y2 += {font.getsize(headerString)[1]}')
 
     helpInfo = '↑ Next stn  ↓ N↔S'
