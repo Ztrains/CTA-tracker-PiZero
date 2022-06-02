@@ -68,8 +68,8 @@ backlight.value = True
 # setup buttons on miniPiTFT
 topButton = digitalio.DigitalInOut(board.D23)
 botButton = digitalio.DigitalInOut(board.D24)
-topButton.switch_to_input(pull=digitalio.Pull.UP)
-botButton.switch_to_input(pull=digitalio.Pull.UP)
+topButton.switch_to_input()
+botButton.switch_to_input()
 
 
 
