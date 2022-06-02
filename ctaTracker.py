@@ -4,6 +4,7 @@ import subprocess
 import os
 import sys
 import json
+import signal
 
 import requests
 from datetime import datetime
@@ -82,7 +83,9 @@ if (cta_api_key == None):
 
 cta_api_url = 'http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key={}&outputType=JSON'.format(cta_api_key)
 
-# CTA map_id constants
+# CTA API docs # https://www.transitchicago.com/developers/ttdocs/
+
+# CTA map_id constants (parentstopID in docs)
 belmont_map_id = 41320
 southport_map_id = 40360
 
@@ -124,8 +127,6 @@ api_url_with_southport_mapid = '{}&mapid={}'.format(cta_api_url, southport_map_i
 
 northboundTrains = []
 southboundTrains = []
-
-print("before getTrains()")
 
 def getTrains(station_name, train_direction):
 
@@ -207,70 +208,11 @@ def getTrains(station_name, train_direction):
     draw.text((x, y), helpInfo, font=font, fill=hexBlue)
     disp.image(image, rotation)
 
+def exitHandler():
+    print('ctrl-c pressed')
+    exit(1)
 
-print("after getTrains()")
-
-
-
-
-
-
-
-# response = requests.get(api_url_with_belmont_mapid)
-# json_response = json.loads(response.text)
-# ctatt = json_response['ctatt']
-
-# etas = ctatt['eta']  # len 8  (num of 'eta' objects)
-# northboundTrains = []
-# southboundTrains = []
-
-# for eta in etas:
-#     if eta['trDr'] == '1':
-#         if len(northboundTrains) < 4:       # only store 4 upcoming trains
-#             northboundTrains.append(eta)
-#     elif eta['trDr'] == '5':
-#         if len(southboundTrains) < 4:
-#             southboundTrains.append(eta)
-
-
-
-# print("after adding to north/south lists")
-
-
-# # Draw a black filled box to clear the image.
-# draw.rectangle((0, 0, width, height), outline=0, fill=0)
-
-# y = top
-# draw.text((x, y), belmontNorthboundStr, font=font, fill='#FFFFFF')
-# y += font.getsize(belmontNorthboundStr)[1]
-
-# #print('---NORTHBOUND TRAINS---')
-# for train in northboundTrains:
-#     stopDescription = train["stpDe"]
-#     trainLine = train['rt']
-#     estArrival = train['arrT']
-#     estArrival2 = datetime.fromisoformat(estArrival)
-#     estArrival3 = estArrival2.strftime('%-I:%M:%S %p')
-
-#     #print(f'{trainLine} : {estArrival3}')
-
-#     fillColor = hexWhite       # default color is white
-#     if (trainLine == 'Red'):
-#         fillColor = hexRed   
-#     elif (trainLine == 'Brn'):
-#         fillColor = hexBrown
-#     elif (trainLine == 'P'):
-#         fillColor = hexPurple
-#         trainLine = 'Pur'       # add 2 chars to line up spacing with Red/Brn
-
-
-#     trainInfo = f'{trainLine} - {estArrival3}'
-#     draw.text((x, y), trainInfo, font=font, fill=fillColor)
-#     y += font.getsize(trainInfo)[1]
-
-# helpInfo = '↑ N↔S - ↓ Refresh'
-# draw.text((x, y), helpInfo, font=font, fill=hexBlue)
-# disp.image(image, rotation)
+signal.signal(signal.SIGINT, exitHandler)
 
 
 # on initial start, load Belmont train info
