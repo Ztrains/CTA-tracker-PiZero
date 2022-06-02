@@ -119,8 +119,76 @@ hexBlue = '#2a79d4'     # blue info color
 hexPurple = '#7d22ab'   # purple line color
 
 
-
 api_url_with_belmont_mapid = '{}&mapid={}'.format(cta_api_url, belmont_map_id)
+api_url_with_southport_mapid = '{}&mapid={}'.format(cta_api_url, southport_map_id)
+
+
+
+def getTrains(url_to_hit):
+    response = requests.get(url_to_hit)
+    json_response = json.loads(response.text)
+    ctatt = json_response['ctatt']
+
+    etas = ctatt['eta']  # len 8  (num of 'eta' objects)
+    northboundTrains = []
+    southboundTrains = []
+
+    for eta in etas:
+        if eta['trDr'] == '1':
+            if len(northboundTrains) < 4:       # only store 4 upcoming trains
+                northboundTrains.append(eta)
+        elif eta['trDr'] == '5':
+            if len(southboundTrains) < 4:
+                southboundTrains.append(eta)
+
+
+
+
+
+
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
+
+    y = top
+    draw.text((x, y), southportNorthboundStr, font=font, fill='#FFFFFF')
+    y += font.getsize(southportNorthboundStr)[1]
+
+    #print('---NORTHBOUND TRAINS---')
+    for train in northboundTrains:
+        stopDescription = train["stpDe"]
+        trainLine = train['rt']
+        estArrival = train['arrT']
+        estArrival2 = datetime.fromisoformat(estArrival)
+        estArrival3 = estArrival2.strftime('%-I:%M:%S %p')
+
+        #print(f'{trainLine} : {estArrival3}')
+
+        fillColor = hexWhite       # default color is white
+        if (trainLine == 'Red'):
+            fillColor = hexRed   
+        elif (trainLine == 'Brn'):
+            fillColor = hexBrown
+        elif (trainLine == 'P'):
+            fillColor = hexPurple
+            trainLine = 'Pur'       # add 2 chars to line up spacing with Red/Brn
+
+
+        trainInfo = f'{trainLine} - {estArrival3}'
+        draw.text((x, y), trainInfo, font=font, fill=fillColor)
+        y += font.getsize(trainInfo)[1]
+
+    helpInfo = '↑ N↔S - ↓ Refresh'
+    draw.text((x, y), helpInfo, font=font, fill=hexBlue)
+    disp.image(image, rotation)
+
+
+
+
+
+
+
+
+
 
 response = requests.get(api_url_with_belmont_mapid)
 json_response = json.loads(response.text)
@@ -180,18 +248,22 @@ disp.image(image, rotation)
 
 
 # main loop to catch button presses
+# button value is TRUE when resting, value becomes FALSE when held down
 while True:
-#    if topButton.value and botButton.value:
-#        backlight.value = False  # turn off backlight
-#    else:
-#        backlight.value = True  # turn on backlight
+    if topButton.value and botButton.value:
+        backlight.value = False  # turn off backlight
+    else:
+        backlight.value = True  # turn on backlight
 
-#    if botButton.value and not topButton.value:  # just button A pressed
-#        print("top button pressed")
-#    if topButton.value and not botButton.value:  # just button B pressed
-#        print("top button pressed")
-#    if not topButton.value and not botButton.value:  # none pressed
-#        print("no buttons pressed")
-    print(f'top button val: {topButton.value}')
-    print(f'bot button val: {botButton.value}')
+    if botButton.value and not topButton.value:  # just top button pressed
+        print("top button pressed")
+    if topButton.value and not botButton.value:  # just bottom button pressed
+        print("bottom button pressed")
+        getTrains(api_url_with_southport_mapid)
+    if not topButton.value and not botButton.value:  # both pressed
+        print("both buttons pressed")
     time.sleep(1)
+
+
+
+
