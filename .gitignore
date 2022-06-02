@@ -2,3 +2,4 @@ pizero/
 .env
 sampleResponse.json
 statsSample.py
+todos.txt
