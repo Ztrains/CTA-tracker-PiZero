@@ -251,10 +251,10 @@ disp.image(image, rotation)
 # main loop to catch button presses
 # button value is TRUE when resting, value becomes FALSE when held down
 while True:
-    if topButton.value and botButton.value:
-        backlight.value = False  # turn off backlight
-    else:
-        backlight.value = True  # turn on backlight
+#    if topButton.value and botButton.value:
+#        backlight.value = False  # turn off backlight
+#    else:
+#        backlight.value = True  # turn on backlight
 
     if botButton.value and not topButton.value:  # just top button pressed
         print("top button pressed")
