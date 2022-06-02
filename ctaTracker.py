@@ -68,8 +68,8 @@ backlight.value = True
 # setup buttons on miniPiTFT
 topButton = digitalio.DigitalInOut(board.D23)
 botButton = digitalio.DigitalInOut(board.D24)
-topButton.switch_to_input()
-botButton.switch_to_input()
+#topButton.switch_to_input()
+#botButton.switch_to_input()
 
 
 
@@ -167,7 +167,7 @@ for train in northboundTrains:
         fillColor = hexBrown
     elif (trainLine == 'P'):
         fillColor = hexPurple
-        trainLine = 'P  '       # add 2 spaces to line up spacing with Red/Brn
+        trainLine = 'Pur'       # add 2 chars to line up spacing with Red/Brn
 
 
     trainInfo = f'{trainLine} - {estArrival3}'
